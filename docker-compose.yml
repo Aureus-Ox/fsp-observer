@@ -1,0 +1,23 @@
+services:
+  flare-observer:
+    container_name: flare-observer
+    image: ghcr.io/flare-foundation/fsp-observer:main
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      RPC_BASE_URL: http://10.150.0.23:9650/ext/bc/C/rpc
+      IDENTITY_ADDRESS: "0xE3b7968c1B706461A8f63540080ECF4Ce70C30c0"
+      NOTIFICATION_TELEGRAM_BOT_TOKEN: "8934731345:AAEf9Z4lcDvkkIXfHVMjoBVZJOKAg4ZOQIg"
+      NOTIFICATION_TELEGRAM_CHAT_ID: "@flare_fsp_observer_bot"
+      METRICS_ENABLED: true
+      METRICS_PORT: 8000
+      LOG_LEVEL: "INFO"
+      MAX_BLOCK_RANGE: 1000
+    restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: "2m"
+        max-file: "2"
+        compress: "true"
